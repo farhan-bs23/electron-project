@@ -3,14 +3,6 @@
     <head>
         <meta charset="UTF-8" />
         <title>Readit</title>
-        <meta
-            http-equiv="Content-Security-Policy"
-            content="default-src 'self'; script-src 'self'"
-        />
-        <meta
-            http-equiv="X-Content-Security-Policy"
-            content="default-src 'self'; script-src 'self'"
-        />
         <link rel="stylesheet" href="styles/main.css" />
     </head>
     <body>
@@ -19,8 +11,13 @@
             <input type="text" id="search" placeholder="Search" />
         </header>
         <main>
-            <p id="no-items">No Items</p>
-            <div id="items"></div>
+            <!-- <p id="no-items">No Items</p> -->
+            <div id="items">
+                <div class="item">
+                    <img src="https://complianz.io/wp-content/uploads/2019/03/placeholder-300x202.jpg" alt="poster">
+                    <h3>Name here</h3>
+                </div>
+            </div>
         </main>
         <div id="modal">
             <input type="text" id="url" placeholder="Enter URL" />

@@ -1,97 +1,121 @@
-
-html, body {
-  height: 100%;
-}
-
+html,
 body {
-  font: caption;
-  margin: 0;
-  display: flex;
-  flex-flow: column;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 button {
-  background: dodgerblue;
-  color: white;
-  border-radius: 5px;
-  border: none;
-  font-size: 20px;
-  outline: none;
+    cursor: pointer;
+}
+
+body {
+    font: caption;
+    margin: 0;
+    display: flex;
+    flex-flow: column;
+}
+
+button {
+    background: dodgerblue;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    font-size: 20px;
+    outline: none;
 }
 
 input {
-  font-size: 20px;
-  border-radius: 5px;
-  border: 1px solid silver;
-  padding: 0 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid silver;
+    padding: 0 10px;
 }
 
 input::placeholder {
-  color: lightgray;
+    color: lightgray;
 }
 
 header {
-  background: lightgray;
-  display: flex;
-  padding: 10px;
-  font-weight: bold;
-  border-bottom: 1px solid silver;
-  box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+    background: lightgray;
+    display: flex;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid silver;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
 }
 
 #show-modal {
-  padding: 0px 12px 5px;
-  margin-right: 10px;
-  font-size: 30px;
+    padding: 0px 12px 5px;
+    margin-right: 10px;
+    font-size: 30px;
 }
 
 #search {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
-#items {
-  flex-grow: 1;
+main {
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 #no-items {
-  font-weight: bold;
-  color: silver;
-  text-align: center;
-  width: 100%;
-  position: absolute;
-  top: 100px;
-  z-index: -1;
+    font-weight: bold;
+    color: silver;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 100px;
+    z-index: -1;
 }
 
 #modal {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  align-items: center;
-  align-content: center;
-  flex-wrap: wrap;
-  /*display: none;*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    display: none;
 }
 
 #url {
-  flex-grow: 1;
-  width: 100%;
-  margin: 0 25px 15px;
-  padding: 10px;
+    flex-grow: 1;
+    width: 100%;
+    margin: 0 25px 15px;
+    padding: 10px;
 }
 
 #modal button {
-  padding: 10px;
+    padding: 10px;
 }
 
 #close-modal {
-  background: white;
-  color: black;
-  margin-left: 15px;
+    background: white;
+    color: black;
+    margin-left: 15px;
 }
 
 #add-item {
-  margin-left: 25px;
+    margin-left: 25px;
+}
+
+.item {
+    display: flex;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+}
+
+.item img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+
+.item h3 {
+    padding: 20px;
 }
