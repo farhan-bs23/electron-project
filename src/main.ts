@@ -1,5 +1,9 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
+
+ipcMain.on("add-item", (value) => {
+    console.log(value);
+});
 
 function createWindow() {
     // Create the browser window.
