@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 
 ipcMain.on("add-item", (value) => {
-    console.log(value);
+    console.log(value.target);
 });
 
 function createWindow() {

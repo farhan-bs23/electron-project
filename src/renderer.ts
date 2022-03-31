@@ -20,8 +20,8 @@ closeModal.addEventListener("click", () => {
 addItem.addEventListener("click", () => {
     const { value } = inputUrlElem;
     if (value) {
-        console.log(window.isElectron);
-        // ipcRenderer.send("add-item", value);
+        console.log(value)
+        window.electronAPI.addItem(value);
     }
 });
 
