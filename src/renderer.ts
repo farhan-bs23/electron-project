@@ -1,3 +1,5 @@
+import { windowItem, ipcItem } from "./model";
+
 //DOM element references
 const showModal = document.getElementById("show-modal"),
     closeModal = document.getElementById("close-modal"),
@@ -8,7 +10,7 @@ const showModal = document.getElementById("show-modal"),
 //show modal
 showModal.addEventListener("click", () => {
     modal.style.display = "flex";
-    addItem.removeAttribute('disabled');
+    addItem.removeAttribute("disabled");
     inputUrlElem.focus();
 });
 
@@ -32,8 +34,20 @@ inputUrlElem.addEventListener("keyup", (event) => {
     }
 });
 
-window.electronAPI.itemCb((value: string) => {
-    addItem.removeAttribute('disabled')
-    closeModal.click();
-    console.log(value);
+window.electronAPI.itemCb((value: ipcItem) => {
+    addItem.removeAttribute("disabled");
+    if (value.success) {
+        addToLocal(value);
+        closeModal.click();
+    } else {
+        alert(`lol that's not a valid url.`);
+    }
 });
+
+function addToLocal(item: ipcItem) {
+    const localData = localStorage.getItem("urldata")
+        ? JSON.parse(localStorage.getItem("urldata"))
+        : [];
+    localData.push(item);
+    localStorage.setItem("urldata", JSON.stringify(localData));
+}

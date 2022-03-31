@@ -1,8 +1,9 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
+import { ipcItem } from "./model";
 
 ipcMain.on("add-item", (event, value) => {
-    createOffscreen(value, (res: any) => {
+    createOffscreen(value, (res: ipcItem) => {
         event.sender.send("add-item-ret", res);
     });
 });
@@ -56,20 +57,20 @@ async function createOffscreen(url: string, callback: Function) {
             offscreen: true,
         },
     });
-    offscreenWindow.loadURL(url).catch(() => {
-        callback({ success: false });
-    });
     offscreenWindow.webContents.on("did-finish-load", () => {
         const title = offscreenWindow.getTitle();
         offscreenWindow.webContents
             .capturePage()
             .then((value) => {
                 const screenshot = value.toDataURL();
-                offscreenWindow.close();
                 callback({ success: true, title, screenshot, url });
             })
             .catch(() => {
                 callback({ success: false });
             });
+            offscreenWindow.close();
+    });
+    offscreenWindow.loadURL(url).catch(() => {
+        callback({ success: false });
     });
 }
