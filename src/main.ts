@@ -1,8 +1,9 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 
-ipcMain.on("add-item", (value) => {
-    console.log(value.target);
+ipcMain.on("add-item", (event, value) => {
+    console.log(value)
+    event.sender.send("add-item-ret", "got something");
 });
 
 function createWindow() {

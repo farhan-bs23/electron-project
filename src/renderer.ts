@@ -20,7 +20,7 @@ closeModal.addEventListener("click", () => {
 addItem.addEventListener("click", () => {
     const { value } = inputUrlElem;
     if (value) {
-        console.log(value)
+        console.log(value);
         window.electronAPI.addItem(value);
     }
 });
@@ -29,4 +29,8 @@ inputUrlElem.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
         addItem.click();
     }
+});
+
+window.electronAPI.itemCb((value: string) => {
+    console.log(value);
 });
