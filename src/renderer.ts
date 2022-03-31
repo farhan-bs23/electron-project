@@ -65,12 +65,13 @@ function addToLocal(item: ipcItem) {
 function displayItems(list: windowItem[]) {
     const items = document.getElementById("items");
     items.innerHTML = "";
-    list.forEach((item) => {
+    list.forEach((item, index) => {
         const itemNode = document.createElement("div");
         itemNode.setAttribute("class", "item");
         itemNode.innerHTML = `
             <img src="${item.screenshot}" onclick="openWindow(this, '${item.url}')">
             <h3>${item.title}</h3>
+            <h6 onclick="deleteItem(this, ${index})">Delete<h6>
         `;
         items.appendChild(itemNode);
     });
@@ -78,6 +79,15 @@ function displayItems(list: windowItem[]) {
 
 function openWindow(elem: HTMLElement, url: string) {
     window.electronAPI.openURL(url);
+}
+
+function deleteItem(elem: HTMLElement, index: number) {
+    const localData: windowItem[] = getLocalData();
+    const newList = localData.filter((item, ind) => {
+        return index !== ind;
+    });
+    localStorage.setItem("urldata", JSON.stringify(newList));
+    displayItems(newList);
 }
 
 function getLocalData() {

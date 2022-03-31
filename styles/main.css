@@ -124,4 +124,11 @@ main {
 
 .item h3 {
     padding: 20px;
+    flex: 1 0 auto;
+}
+
+.item h6{
+    color: red;
+    cursor: pointer;
+    margin-left: auto;
 }
