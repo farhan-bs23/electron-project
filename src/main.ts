@@ -2,8 +2,9 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 
 ipcMain.on("add-item", (event, value) => {
-    console.log(value)
-    event.sender.send("add-item-ret", "got something");
+    createOffscreen(value, (res: any) => {
+        event.sender.send("add-item-ret", res);
+    });
 });
 
 function createWindow() {
@@ -45,5 +46,30 @@ app.on("window-all-closed", () => {
     }
 });
 
-// In this file you can include the rest of your app"s specific main process
-// code. You can also put them in separate files and require them here.
+// function to get urls screenshot & title
+async function createOffscreen(url: string, callback: Function) {
+    const offscreenWindow = new BrowserWindow({
+        width: 500,
+        height: 500,
+        show: false,
+        webPreferences: {
+            offscreen: true,
+        },
+    });
+    offscreenWindow.loadURL(url).catch(() => {
+        callback({ success: false });
+    });
+    offscreenWindow.webContents.on("did-finish-load", () => {
+        const title = offscreenWindow.getTitle();
+        offscreenWindow.webContents
+            .capturePage()
+            .then((value) => {
+                const screenshot = value.toDataURL();
+                offscreenWindow.close();
+                callback({ success: true, title, screenshot, url });
+            })
+            .catch(() => {
+                callback({ success: false });
+            });
+    });
+}

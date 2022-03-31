@@ -21,7 +21,7 @@ closeModal.addEventListener("click", () => {
 addItem.addEventListener("click", () => {
     const { value } = inputUrlElem;
     if (value) {
-        console.log(value);
+        addItem.setAttribute("disabled", "");
         window.electronAPI.addItem(value);
     }
 });
@@ -33,7 +33,7 @@ inputUrlElem.addEventListener("keyup", (event) => {
 });
 
 window.electronAPI.itemCb((value: string) => {
-    addItem.setAttribute('disabled', '')
+    addItem.removeAttribute('disabled')
     closeModal.click();
     console.log(value);
 });
