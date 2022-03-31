@@ -8,6 +8,7 @@ const showModal = document.getElementById("show-modal"),
 //show modal
 showModal.addEventListener("click", () => {
     modal.style.display = "flex";
+    addItem.removeAttribute('disabled');
     inputUrlElem.focus();
 });
 
@@ -32,5 +33,7 @@ inputUrlElem.addEventListener("keyup", (event) => {
 });
 
 window.electronAPI.itemCb((value: string) => {
+    addItem.setAttribute('disabled', '')
+    closeModal.click();
     console.log(value);
 });

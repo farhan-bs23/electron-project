@@ -103,6 +103,11 @@ main {
     margin-left: 25px;
 }
 
+#add-item:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
 .item {
     display: flex;
     padding: 20px;
