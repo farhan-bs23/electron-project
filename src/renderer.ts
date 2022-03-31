@@ -69,11 +69,15 @@ function displayItems(list: windowItem[]) {
         const itemNode = document.createElement("div");
         itemNode.setAttribute("class", "item");
         itemNode.innerHTML = `
-            <img src="${item.screenshot}">
+            <img src="${item.screenshot}" onclick="openWindow(this, '${item.url}')">
             <h3>${item.title}</h3>
         `;
         items.appendChild(itemNode);
     });
+}
+
+function openWindow(elem: HTMLElement, url: string) {
+    window.electronAPI.openURL(url);
 }
 
 function getLocalData() {

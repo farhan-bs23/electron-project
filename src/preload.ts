@@ -6,6 +6,7 @@ declare global {
     interface Window {
         electronAPI: {
             addItem: (b: string) => void;
+            openURL: (b: string) => void;
             itemCb: Function;
         };
     }
@@ -30,6 +31,9 @@ window.addEventListener("DOMContentLoaded", () => {
 contextBridge.exposeInMainWorld("electronAPI", {
     addItem: (title: string) => {
         ipcRenderer.send("add-item", title);
+    },
+    openURL: (url: string) => {
+        ipcRenderer.send("open-item", url);
     },
     itemCb: (callback: Function) => {
         ipcRenderer.on("add-item-ret", (e, value) => {

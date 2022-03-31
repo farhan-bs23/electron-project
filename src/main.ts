@@ -8,6 +8,10 @@ ipcMain.on("add-item", (event, value) => {
     });
 });
 
+ipcMain.on("open-item", (event, value) => {
+    createURLWindow(value);
+});
+
 function createWindow() {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
@@ -23,6 +27,19 @@ function createWindow() {
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
+}
+
+function createURLWindow(url: string) {
+    const mainWindow = new BrowserWindow({
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+        },
+        height: 500,
+        width: 500,
+    });
+
+    // and load the index.html of the app.
+    mainWindow.loadURL(url);
 }
 
 // This method will be called when Electron has finished
@@ -68,7 +85,7 @@ async function createOffscreen(url: string, callback: Function) {
             .catch(() => {
                 callback({ success: false });
             });
-            offscreenWindow.close();
+        offscreenWindow.close();
     });
     offscreenWindow.loadURL(url).catch(() => {
         callback({ success: false });
