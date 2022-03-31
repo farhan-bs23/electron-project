@@ -1,2 +1,2 @@
 # electron-project
- Repo for learning ElectronJS
+## Toy app built with Electron & TypeScript

@@ -45,9 +45,28 @@ window.electronAPI.itemCb((value: ipcItem) => {
 });
 
 function addToLocal(item: ipcItem) {
-    const localData = localStorage.getItem("urldata")
-        ? JSON.parse(localStorage.getItem("urldata"))
-        : [];
+    const localData = getLocalData();
     localData.push(item);
     localStorage.setItem("urldata", JSON.stringify(localData));
+    displayItems(localData);
+}
+
+function displayItems(list: windowItem[]) {
+    const items = document.getElementById('items');
+    list.forEach((item) => {
+        const itemNode = document.createElement('div');
+        itemNode.setAttribute("class", "item");
+        itemNode.innerHTML = `
+            <img src="${item.screenshot}">
+            <h3>${item.title}</h3>
+        `;
+        items.appendChild(itemNode);
+    });
+}
+
+
+function getLocalData() {
+    return localStorage.getItem("urldata")
+        ? JSON.parse(localStorage.getItem("urldata"))
+        : [];
 }
