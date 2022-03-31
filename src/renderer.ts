@@ -5,6 +5,7 @@ const showModal = document.getElementById("show-modal"),
     closeModal = document.getElementById("close-modal"),
     addItem = document.getElementById("add-item"),
     inputUrlElem = document.getElementById("url") as HTMLInputElement,
+    searchElem = document.getElementById("search") as HTMLInputElement,
     modal = document.getElementById("modal");
 
 //show modal
@@ -26,6 +27,16 @@ addItem.addEventListener("click", () => {
         addItem.setAttribute("disabled", "");
         window.electronAPI.addItem(value);
     }
+});
+
+//search items
+searchElem.addEventListener("keyup", (event) => {
+    const data: windowItem[] = getLocalData();
+    const { value } = searchElem;
+    const newList = data.filter((item) => {
+        return item.title.toLowerCase().includes(value.toLowerCase());
+    });
+    displayItems(newList);
 });
 
 inputUrlElem.addEventListener("keyup", (event) => {
@@ -52,9 +63,10 @@ function addToLocal(item: ipcItem) {
 }
 
 function displayItems(list: windowItem[]) {
-    const items = document.getElementById('items');
+    const items = document.getElementById("items");
+    items.innerHTML = "";
     list.forEach((item) => {
-        const itemNode = document.createElement('div');
+        const itemNode = document.createElement("div");
         itemNode.setAttribute("class", "item");
         itemNode.innerHTML = `
             <img src="${item.screenshot}">
@@ -64,9 +76,15 @@ function displayItems(list: windowItem[]) {
     });
 }
 
-
 function getLocalData() {
     return localStorage.getItem("urldata")
         ? JSON.parse(localStorage.getItem("urldata"))
         : [];
 }
+
+function init() {
+    const data: windowItem[] = getLocalData();
+    displayItems(data);
+}
+
+init();
